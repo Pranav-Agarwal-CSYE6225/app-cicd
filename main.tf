@@ -18,8 +18,8 @@ resource "aws_iam_policy" "GH-Upload-To-S3" {
                 "s3:List*"
             ],
             "Resource": [
-                "arn:aws:s3:::codedeploy.randomstring123",
-                "arn:aws:s3:::codedeploy.randomstring123/*"
+                "arn:aws:s3:::${var.codedeploy_bucket}",
+                "arn:aws:s3:::${var.codedeploy_bucket}/*"
             ]
         }
     ]

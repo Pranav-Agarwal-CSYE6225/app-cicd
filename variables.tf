@@ -22,3 +22,8 @@ variable "application_name" {
     type = string
     description = "name of codedeploy app"
 }
+
+variable "codedeploy_bucket" {
+    type = string
+    description = "bucket to store the app revision in"
+}
