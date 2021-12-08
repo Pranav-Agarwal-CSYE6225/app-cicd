@@ -68,6 +68,24 @@ resource "aws_iam_policy" "GH-Code-Deploy" {
 EOF
 }
 
+resource "aws_iam_policy" "GH-LAMBDA-Deploy" {
+  name        = "GH-Lambda-Deploy"
+  description = "lambda Policy"
+  policy      = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "lambda:UpdateFunctionCode",
+            "Resource": "arn:aws:lambda:${var.aws_region}:${var.aws_account}:function:${var.lambda_name}"
+        }
+    ]
+}
+EOF 
+}
+
 data "aws_iam_user" "gh-cicd" {
   user_name = var.iam_user
 }
@@ -80,4 +98,9 @@ resource "aws_iam_user_policy_attachment" "GH_Code_Deploy" {
 resource "aws_iam_user_policy_attachment" "GH_Upload_To_S3" {
   user       = data.aws_iam_user.gh-cicd.user_name
   policy_arn =  aws_iam_policy.GH-Upload-To-S3.arn
+}
+
+resource "aws_iam_user_policy_attachment" "GH_lambda" {
+  user       = data.aws_iam_user.gh-cicd.user_name
+  policy_arn =  aws_iam_policy.GH-LAMBDA-Deploy.arn
 }

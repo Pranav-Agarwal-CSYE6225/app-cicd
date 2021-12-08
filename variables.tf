@@ -27,3 +27,8 @@ variable "codedeploy_bucket" {
     type = string
     description = "bucket to store the app revision in"
 }
+
+variable "lambda_name"{
+    type = string
+    description = "name of lambda function"
+}
